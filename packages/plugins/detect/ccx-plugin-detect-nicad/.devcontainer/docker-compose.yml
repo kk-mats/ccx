@@ -1,0 +1,11 @@
+version: "3.8"
+
+services:
+  nicad:
+    build:
+      context: ..
+      target: dev
+    tty: true
+    volumes:
+      - ..:/plugin
+      - /plugin/node_modules

@@ -1,0 +1,37 @@
+{
+	"name": "ccx",
+	"version": "1.0.0",
+	"author": "kk-mats <k.mats.kk@gmail.com>",
+	"license": "MIT",
+	"private": true,
+	"workspaces": [
+		"packages/*"
+	],
+	"scripts": {
+		"auth": "yarn workspace auth",
+		"client": "yarn workspace client",
+		"common": "yarn workspace common",
+		"core": "yarn workspace core",
+		"build": "run-p build:*",
+		"build:client": "yarn workspace client run build",
+		"start": "run-p start:*",
+		"start:auth": "yarn workspace auth start",
+		"start:core": "yarn workspace core start"
+	},
+	"devDependencies": {
+		"@typescript-eslint/eslint-plugin": "^4.14.0",
+		"@typescript-eslint/parser": "^4.14.0",
+		"@typescript-eslint/typescript-estree": "^4.14.0",
+		"esbuild": "^0.9.6",
+		"eslint": "^7.18.0",
+		"eslint-config-prettier": "^7.2.0",
+		"eslint-import-resolver-typescript": "^2.3.0",
+		"eslint-plugin-import": "^2.22.1",
+		"eslint-plugin-prettier": "^3.3.1",
+		"npm-run-all": "^4.1.5",
+		"prettier": "^2.1.1",
+		"ts-node": "^9.1.1",
+		"tsconfig-paths": "^3.9.0",
+		"typescript": "^4.1.3"
+	}
+}

@@ -1,0 +1,31 @@
+{
+	"extends": "../../tsconfig.json",
+	"compilerOptions": {
+		"target": "es6",
+		"module": "esnext",
+		"lib": ["dom", "dom.iterable", "esnext"],
+		"jsx": "react",
+		"outDir": "./dist",
+		"baseUrl": "./src",
+		"skipLibCheck": true,
+		"composite": true,
+		"declaration": true,
+		"paths": {
+			"common/auth-client/*": [
+				"../../common/src/auth-client/*"
+			],
+			"common/all/*": [
+				"../../common/src/all/*"
+			]
+		}
+	},
+	"references": [
+		{"path": "../common"}
+	],
+	"include": [
+		"src/**/*.tsx",
+		"src/**/*.ts",
+		"../../common/src/all/*",
+		"../../common/src/auth-client/*"
+	]
+}

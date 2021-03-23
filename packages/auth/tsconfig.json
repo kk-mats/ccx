@@ -1,0 +1,25 @@
+{
+	"extends": "../../tsconfig.json",
+	"compilerOptions": {
+		"lib": ["esnext"],
+		"outDir": "../../dist/auth",
+		"baseUrl": "./src",
+		"paths": {
+			"common/auth-client/*": [
+				"../../common/src/auth-client/*"
+			],
+			"common/server-only/*": [
+				"../../common/src/server-only/*"
+			],
+			"common/all/*": [
+				"../../common/src/all/*"
+			]
+		}
+	},
+	"references": [
+		{"path": "../common"}
+	],
+	"include": [
+		"src/**/*.ts"
+	]
+}

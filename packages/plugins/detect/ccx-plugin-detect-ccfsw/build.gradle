@@ -1,0 +1,32 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.4.21'
+    id 'org.jetbrains.kotlin.plugin.serialization' version '1.4.10'
+    id 'com.github.johnrengelman.shadow' version '6.1.0'
+    id 'java'
+}
+
+group 'com.github.kk-mats'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    maven { url "https://kotlin.bintray.com/kotlinx" }
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'com/github/kk_mats/ccx_plugin_detect_ccfsw/ApplicationKt'
+    }
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib"
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1"
+}
+
+shadowJar {
+    minimize()
+    archiveBaseName.set('ccx_plugin_detect_ccfsw')
+    archiveClassifier.set('')
+    archiveVersion.set('')
+}

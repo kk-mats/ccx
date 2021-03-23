@@ -1,0 +1,53 @@
+name: Deckard
+environment:
+  linux:
+    dockerfile: ./Dockerfile
+variants:
+  - versions: ["rel2.0solidity"]
+    parameters:
+      target:
+        label: Target directory
+        type: directory
+        rule:
+          revision: revision
+      revision:
+        label: Target revision
+        type: revision
+      language:
+        label: Language
+        type: variant
+        rule:
+          default: "*.java"
+          values:
+            - label: Java
+              value: "*.java"
+            - label: PHP
+              value: "*.php"
+            - label: C
+              value: "*.c"
+            - label: C(header)
+              value: "*.h"
+            - label: Dot
+              value: "*.dot"
+      minTokens:
+        label: Minimum number of tokens required for clones
+        type: int
+        rule:
+          default: 50
+          min: 1
+          multiple: true
+      stride:
+        label: Size of the sliding window
+        type: int
+        rule:
+          default: 2
+          min: 0
+          multiple: true
+      similarity:
+        label: Similarity
+        type: float
+        rule:
+          default: 0.85
+          minExclusive: 0
+          max: 1
+          multiple: true

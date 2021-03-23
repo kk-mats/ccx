@@ -1,0 +1,80 @@
+name: CCFinderX
+environment:
+  windows:
+    dockerfile: ./Dockerfile
+variants:
+  - versions: ["10.2.7"]
+    parameters:
+      directory:
+        label: Target directory
+        type: directory
+        rule:
+          revision: revision
+      revision:
+        label: Target revision
+        type: revision
+      language:
+        label: Language
+        type: variant
+        rule:
+          default: java
+          values:
+            - label: C/C++
+              value: cpp
+            - label: C#
+              value: csharp
+            - label: Java
+              value: java
+            - label: COBOL
+              value: cobol
+            - label: Visual Basic
+              value: visualbasic
+            - label: Plain Text
+              value: plaintext
+      b:
+        label: Minimum size of clones in tokens
+        type: int
+        rule:
+          min: 1
+          default: 50
+        description: Minimum size of clones you are interested in, in tokens.
+      t:
+        label: Minimum size of token set of clones
+        type: int
+        rule:
+          default: 12
+          min: 1
+      w:
+        label: Detection range
+        type: variant
+        rule:
+          default: f+w+
+          values:
+            - f+w+
+            - f+w-
+            - f-w+
+            - f-w-
+            - f+w+g+
+            - f+w+g-
+            - f+w-g+
+            - f+w-g-
+            - f-w+g+
+            - f-w+g-
+            - f-w-g+
+            - f-w-g-
+      l:
+        label: File list
+        type: optional
+        rule:
+          default: null
+          type: input
+          rule:
+            multiple: true
+      is:
+        label: File group
+        type: optional
+        rule:
+          default: null
+          type: directory
+          rule:
+            revision: revision

@@ -1,0 +1,150 @@
+name: CCFinderSW
+environment:
+  windows:
+    command: ./Dockerfile
+  linux:
+    dockerfile: ./Dockerfile
+variants:
+  - versions: ["1.0"]
+    parameters:
+      d:
+        label: Target directory
+        type: directory
+        rule:
+          revision: revision
+      revision:
+        label: Target revision
+        type: revision
+      l:
+        label: Language
+        type: variant
+        rule:
+          default: c
+          values:
+            - label: C
+              value: c
+            - label: COBOL
+              value: cobol
+            - label: C++
+              value: cpp
+            - label: C#
+              value: csharp
+            - label: Go
+              value: go
+            - label: Haskel
+              value: haskell
+            - label: Java
+              value: java
+            - label: Perl
+              value: perl
+            - label: PHP
+              value: php
+            - label: Python
+              value: python
+            - label: Ruby
+              value: ruby
+            - label: Scala
+              value: scala
+            - label: st
+              value: st
+            - label: VBA
+              value: vba
+      o:
+        label: Output filename base
+        type: input
+        rule:
+          minLength: 1
+      t:
+        label: Minimum size of clones
+        type: int
+        rule:
+          default: 50
+          min: 1
+        description: Minimum size of clones you are interested in, in tokens.
+      rnr:
+        type: float
+        rule:
+          default: 0.3
+          min: 0
+          max: 1
+          step: 0.1
+        description: Minimum ratio of non-repeated code.
+      tks:
+        type: int
+        rule:
+          default: 12
+          min: 1
+        description: Minimum size of token set of clones.
+      w:
+        label: Detection range
+        type: variant
+        rule:
+          default: "0"
+          values:
+            - label: All clones
+              value: "0"
+            - label: Only intra-file clones
+              value: "1"
+            - label: Only inter-file clones
+              value: "2"
+      b:
+        type: switch
+        rule:
+          default: false
+          exclusive: antlr
+      antlr:
+        type: optional
+        rule:
+          default: null
+          exclusive: b
+          type: input
+      charset:
+        label: Source file encoding
+        type: variant
+        rule:
+          default: auto
+          values:
+            - label: Shift-JIS
+              value: sjis
+            - label: UTF-8
+              value: utf8
+            - label: ECU-JP
+              value: euc
+            - label: Auto
+              value: auto
+      ccf:
+        label: Output result in Gemini compatible format ([filename_base].txt)
+        type: switch
+        rule:
+          default: false
+      ccfx:
+        label: Output result in GemX compatible format ([filename_base].ccfxd)
+        type: switch
+        rule:
+          default: false
+      ccfsw:
+        label: Output result in CCFinderSW format ([filename_base]_ccfsw.txt)
+        type: optional
+        rule:
+          type: variant
+          default: null
+          rule:
+            default: pair
+            values:
+              - label: Output clone pairs
+                value: pair
+              - label: Output clone sets
+                value: set
+      json:
+        label: Output result in Json format ([filename_base]_ccfsw).json)
+        type: optional
+        rule:
+          type: variant
+          default: null
+          rule:
+            default: "-"
+            values:
+              - label: Output with indents
+                value: "+"
+              - label: Output without indents
+                value: "-"

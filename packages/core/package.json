@@ -1,0 +1,49 @@
+{
+	"name": "core",
+	"version": "1.0.0",
+	"main": "./src/application/index.ts",
+	"license": "MIT",
+	"dependencies": {
+		"@hapi/boom": "^9.1.0",
+		"archiver": "^5.0.2",
+		"express": "^4.17.1",
+		"fp-ts": "^2.9.3",
+		"fs-extra": "^9.1.0",
+		"got": "^11.1.2",
+		"io-ts": "^2.2.13",
+		"io-ts-reporters": "^1.2.2",
+		"io-ts-types": "^0.5.6",
+		"js-yaml": "^4.0.0",
+		"log4js": "^6.2.1",
+		"mongodb": "^3.6.3",
+		"mongoose": "^5.11.13",
+		"multer": "^1.4.2",
+		"simple-git": "^2.31.0",
+		"slugify": "^1.4.0",
+		"tar": "^6.1.0",
+		"tar-fs": "^2.1.1",
+		"unzipper": "^0.10.11",
+		"uuid": "^8.3.2"
+	},
+	"devDependencies": {
+		"@types/archiver": "^3.1.1",
+		"@types/express": "^4.17.6",
+		"@types/fs-extra": "^9.0.1",
+		"@types/js-yaml": "^4.0.0",
+		"@types/mongodb": "^3.5.18",
+		"@types/multer": "^1.4.5",
+		"@types/tar": "^4.0.4",
+		"@types/tar-fs": "^2.0.0",
+		"@types/unzipper": "^0.10.3",
+		"@types/uuid": "^8.3.0",
+		"eslint-config-airbnb-base": "^14.2.1",
+		"eslint-loader": "^4.0.0",
+		"ts-node-dev": "^1.0.0"
+	},
+	"scripts": {
+		"start": "ts-node -r tsconfig-paths/register ./src/application/index.ts",
+		"dev": "ts-node-dev --watch -r tsconfig-paths/register --inspect=4001 ./src/application/index.ts",
+		"git-daemon": "git daemon --export-all --base-path=/ccx-store --port=5000 /ccx-store",
+		"build": "node esbuild.js"
+	}
+}

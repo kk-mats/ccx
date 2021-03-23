@@ -1,0 +1,96 @@
+name: CCVolti
+environment:
+  windows:
+    dockerfile: ./Dockerfile
+variants:
+  - versions: ["19.01.24"]
+    parameters:
+      d:
+        label: Target directory
+        type: directory
+        rule:
+          revision: revision
+      revision:
+        label: Target revision
+        type: revision
+      cs:
+        label: Source file encoding
+        type: variant
+        rule:
+          default: UTF-8
+          values: [UTF-8]
+      l:
+        label: Language
+        type: variant
+        rule:
+          default: java
+          values:
+            - label: Java
+              value: java
+            - label: C
+              value: c
+            - label: C#
+              value: csharp
+      sim:
+        label: Similarity
+        type: optional
+        rule:
+          default: null
+          type: float
+          rule:
+            default: 0.9
+            min: 0
+            max: 1
+        description: Threshold of similarity for clone detection
+      size:
+        label: Size for methods
+        type: optional
+        rule:
+          default: null
+          type: float
+          rule:
+            default: 50
+            min: 1
+        description: Minimum number of tokens of method you are interested in.
+      sizeb:
+        label: Size for blocks
+        type: optional
+        rule:
+          default: null
+          type: int
+          rule:
+            default: 50
+            min: 1
+        description: Minimum number of tokens of code blocks you are interested in.
+      oc:
+        label: Filename for clone pairs
+        type: optional
+        rule:
+          default: null
+          type: input
+          rule:
+            minLength: 1
+      ot:
+        label: Filename for clone pairs
+        type: optional
+        rule:
+          default: null
+          type: input
+          rule:
+            minLength: 1
+      on:
+        label: Filename for clone notifier
+        type: optional
+        rule:
+          default: null
+          type: input
+          rule:
+            minLength: 1
+      ocs:
+        label: Filename for clone set
+        type: optional
+        rule:
+          default: null
+          type: input
+          rule:
+            minLength: 1

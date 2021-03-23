@@ -1,0 +1,67 @@
+{
+	// Use IntelliSense to learn about possible attributes.
+	// Hover to view descriptions of existing attributes.
+	// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+	"version": "0.2.0",
+	"compounds": [
+		{
+			"name": "all",
+			"configurations": ["client", "auth", "core"]
+		}
+	],
+	"configurations": [
+		{
+			"type": "node",
+			"request": "launch",
+			"name": "client",
+			"cwd": "${workspaceFolder}/packages/client",
+			"runtimeExecutable": "yarn",
+			"runtimeArgs": ["workspace", "client", "run", "dev"],
+			"skipFiles": ["<node_internals>/**"],
+			"outputCapture": "std"
+		},
+		{
+			"type": "node",
+			"request": "launch",
+			"name": "auth",
+			"cwd": "${workspaceRoot}/packages/auth",
+			"runtimeExecutable": "yarn",
+			"runtimeArgs": ["workspace", "auth", "run", "dev"],
+			"env": {
+				"TS_NODE_PROJECT": "./tsconfig.dev.json"
+			},
+			"sourceMaps": true,
+			"restart": true,
+			"protocol": "inspector",
+			"port": 3001,
+			"internalConsoleOptions": "openOnSessionStart",
+			"outputCapture": "std"
+		},
+		{
+			"type": "node",
+			"request": "launch",
+			"name": "core",
+			"cwd": "${workspaceRoot}/packages/core",
+			"runtimeExecutable": "yarn",
+			"runtimeArgs": ["workspace", "core", "run", "dev"],
+			"env": {
+				"TS_NODE_PROJECT": "./tsconfig.dev.json"
+			},
+			"sourceMaps": true,
+			"restart": true,
+			"protocol": "inspector",
+			"port": 4001,
+			"internalConsoleOptions": "openOnSessionStart",
+			"outputCapture": "std"
+		},
+		{
+			"name": "chrome",
+			"request": "launch",
+			"type": "chrome",
+			"trace": true,
+			"sourceMaps": true,
+			"url": "http://localhost/${env:URL_BASE}",
+			"webRoot": "${workspaceFolder}"
+		}
+	]
+}

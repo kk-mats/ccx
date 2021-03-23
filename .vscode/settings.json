@@ -1,0 +1,25 @@
+{
+	"files.exclude": {
+		"**/node_modules/**": true
+	},
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": true
+	},
+	"npm.packageManager": "yarn",
+	"npm.scriptExplorerAction": "run",
+	"npm.runSilent": true,
+	"eslint.debug": true,
+	"eslint.trace.server": "verbose",
+	"eslint.packageManager": "yarn",
+	"eslint.workingDirectories": [{ "pattern": "./packages/*/"}],
+	"prettier.packageManager": "yarn",
+	"prettier.tabWidth": 4,
+	"prettier.trailingComma": "none",
+	"prettier.useTabs": true,
+	"typescript.tsdk": "node_modules/typescript/lib",
+	"cSpell.words": [
+		"Dropzone",
+		"Entrypoint",
+		"mongodb"
+	]
+}

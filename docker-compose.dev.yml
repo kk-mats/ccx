@@ -1,0 +1,65 @@
+version: "3.8"
+
+services:
+  ccx:
+    build:
+      context: .
+      target: dev
+      dockerfile: ./packages/ccx/Dockerfile
+    tty: true
+    volumes:
+      - yarn_cache:/yarn_cache
+      - ./.docker/dist:/ccx/dist
+      - ./.docker/ccx_logs:/ccx_logs
+      - ./.docker/ccx-store/projects:/ccx-store/projects
+      - ./.vscode:/ccx/.vscode
+      - ./.eslintrc.js:/ccx/.eslintrc.js
+      - ./package.json:/ccx/package.json
+      - ./tsconfig.json:/ccx/tsconfig.json
+      - ./packages/common:/ccx/packages/common
+      - ./packages/client:/ccx/packages/client
+      - ./packages/auth:/ccx/packages/auth
+      - ./packages/core:/ccx/packages/core
+      - ./packages/plugins:/ccx-store/plugins/global
+      - /ccx/node_modules
+      - /ccx/packages/common/node_modules
+      - /ccx/packages/client/node_modules
+      - /ccx/packages/auth/node_modules
+      - /ccx/packages/core/node_modules
+    ports:
+      - "$CLIENT_PORT:80"
+      - "$API_PORT:4000"
+      - "$GIT_PORT:5000"
+    env_file:
+      - .env
+    environment:
+      - CONTROLLER_HOST
+      - API_PORT
+      - GIT_PORT
+      - SESSION_SECRET
+      - SESSION_DB_URI
+      - DB_URI
+      - WORKERS
+      - YARN_CACHE_FOLDER=/yarn_cache
+    depends_on:
+      - mongo
+      - worker
+
+  worker:
+    build:
+      context: .
+      target: dev
+      dockerfile: ./packages/worker/Dockerfile
+    tty: true
+    volumes:
+      - ./packages/worker:/ccx/packages/worker
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  mongo:
+    image: mongo
+    volumes:
+      - ./.docker/mongo_data:/data/db
+
+volumes:
+  yarn_cache:
+    driver: local

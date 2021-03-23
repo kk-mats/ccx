@@ -1,0 +1,7 @@
+{
+	"editor.formatOnSave": true,
+	"typescript.tsdk": "node_modules/typescript/lib",
+	"prettier.trailingComma": "none",
+	"prettier.useTabs": true,
+	"prettier.tabWidth": 4
+}

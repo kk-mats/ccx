@@ -1,0 +1,250 @@
+name: NiCad
+environment:
+  linux:
+    dockerfile: ./Dockerfile
+variants:
+  - versions: ["5.2"]
+    parameters:
+      directory:
+        label: Target directory
+        type: directory
+        rule:
+          revision: revision
+      revision:
+        label: Target revision
+        type: revision
+      granularity:
+        label: Granularity
+        type: variant
+        rule:
+          default: functions
+          values:
+            - label: Functions
+              value: functions
+            - label: Blocks
+              value: blocks
+      language:
+        label: Language
+        type: variant
+        rule:
+          default: c
+          values:
+            - label: C
+              value: c
+            - label: C#
+              value: cs
+            - label: Java
+              value: java
+            - label: Python
+              value: py
+            - label: PHP
+              value: php
+            - label: Ruby
+              value: rb
+            - label: WSDL
+              value: wsdl
+            - label: ATL
+              value: atl
+      threshold:
+        label: Threshold
+        description: Maximum code difference threshold you are interested in.
+        type: float
+        rule:
+          default: 0.3
+          min: 0
+          max: 1
+      minsize:
+        label: Minimum size
+        type: int
+        rule:
+          default: 10
+          min: 1
+        description: Minimum sizes of clones we are interested in, in pretty-printed lines.
+      maxsize:
+        label: Maximum size
+        type: int
+        rule:
+          default: 2500
+          min: 1
+        description: Maximum sizes of clones we are interested in, in pretty-printed lines.
+      transform:
+        label: Transform
+        type: optional
+        rule:
+          default: null
+          type: variant
+          rule:
+            values:
+              - atl-extract-functions
+              - atl-rename-blind-functions
+              - atl
+              - c-abstract-blocks
+              - c-abstract-files
+              - c-abstract-functions
+              - c-extract-blocks
+              - c-extract-files
+              - c-extract-functions
+              - c-filter-blocks
+              - c-filter-files
+              - c-filter-functions
+              - c-rename-blind-blocks
+              - c-rename-blind-files
+              - c-rename-blind-functions
+              - c-rename-consistent-blocks
+              - c-rename-consistent-files
+              - c-rename-consistent-functions
+              - c
+              - cs-abstract-blocks
+              - cs-abstract-files
+              - cs-abstract-functions
+              - cs-extract-blocks
+              - cs-extract-files
+              - cs-extract-functions
+              - cs-filter-blocks
+              - cs-filter-files
+              - cs-filter-functions
+              - cs-rename-blind-blocks
+              - cs-rename-blind-files
+              - cs-rename-blind-functions
+              - cs-rename-consistent-blocks
+              - cs-rename-consistent-files
+              - cs-rename-consistent-functions
+              - cs
+              - getoriginal
+              - ifdef
+              - java-abstract-blocks
+              - java-abstract-files
+              - java-abstract-functions
+              - java-extract-blocks
+              - java-extract-files
+              - java-extract-functions
+              - java-filter-blocks
+              - java-filter-files
+              - java-filter-functions
+              - java-normalize-ifconditions-functions
+              - java-rename-blind-blocks
+              - java-rename-blind-files
+              - java-rename-blind-functions
+              - java-rename-consistent-blocks
+              - java-rename-consistent-files
+              - java-rename-consistent-functions
+              - java
+              - php-extract-functions
+              - php-rename-blind-functions
+              - php
+              - py-abstract-blocks
+              - py-abstract-files
+              - py-abstract-functions
+              - py-extract-blocks
+              - py-extract-files
+              - py-extract-functions
+              - py-filter-blocks
+              - py-filter-files
+              - py-filter-functions
+              - py-rename-blind-blocks
+              - py-rename-blind-files
+              - py-rename-blind-functions
+              - py-rename-consistent-blocks
+              - py-rename-consistent-files
+              - py-rename-consistent-functions
+              - py
+              - pyindent
+              - rb-extract-functions
+              - rb-rename-blind-functions
+              - rb
+              - rs-abstract-blocks
+              - rs-abstract-files
+              - rs-abstract-functions
+              - rs-extract-blocks
+              - rs-extract-files
+              - rs-extract-functions
+              - rs-filter-blocks
+              - rs-filter-files
+              - rs-filter-functions
+              - rs-rename-blind-blocks
+              - rs-rename-blind-files
+              - rs-rename-blind-functions
+              - rs-rename-consistent-blocks
+              - rs-rename-consistent-files
+              - rs-rename-consistent-functions
+              - rs
+              - sol-abstract-files
+              - sol-abstract-functions
+              - sol-extract-files
+              - sol-extract-functions
+              - sol-filter-files
+              - sol-filter-functions
+              - sol-rename-blind-files
+              - sol-rename-blind-functions
+              - sol-rename-consistent-files
+              - sol-rename-consistent-functions
+              - sol
+              - swift-extract-blocks
+              - swift-extract-files
+              - swift-extract-functions
+              - swift-rename-blind-blocks
+              - swift-rename-blind-files
+              - swift-rename-blind-functions
+              - swift-rename-consistent-blocks
+              - swift-rename-consistent-files
+              - swift-rename-consistent-functions
+              - swift
+              - wsdl-extract-functions
+      rename:
+        label: Rename
+        type: variant
+        rule:
+          default: blind
+          values:
+            - blind
+            - consistent
+            - none
+        description: Kind of renaming to be applied (none, blind, consistent). Blind renaming changes every identifier to "X". Consistent renaming consistently renames identifiers to "Xn", where n is a number.
+      filter:
+        label: Filter
+        type: input
+        rule:
+          default: none
+        description: Kind of filtering to be applied (none, nonterminal ...). Where each "nonterminal" is the name of a nonterminal in the language grammar.
+      abstract:
+        label: Abstract
+        type: input
+        rule:
+          default: none
+        description: 'Kind of abstraction to be applied (none, nonterminal ...). Where each "nonterminal" is the name of a nonterminal in the language grammar. Abstraction nonterminals presently supported, for C, C#, Java, Python: block - all blocks, including function bodies, declaration - all data declarations, statement - all statements, expression - all expressions, condition - all if/while conditions, literal - all literal constant values.'
+      normalize:
+        label: Normalize
+        type: input
+        rule:
+          default: none
+        description: Custom contextual normalizer to be applied to potential clones (none, normname).
+      cluster:
+        label: Cluster
+        type: switch
+        rule:
+          default: false
+        description:  Cluster clone pairs into classes.
+      report:
+        label: Report
+        type: switch
+        rule:
+          default: false
+        description: Make XML and HTML source reports.
+      include:
+        label: Include
+        type: optional
+        description: Select source files for clone analysis by file pattern.
+        rule:
+          default: null
+          type: input
+          rule:
+            minLength: 1
+      exclude:
+        label: Exclude
+        type: optional
+        description: Exclude some source files from the clone analysis by file pattern.
+        rule:
+          default: null
+          type: input
+          rule:
+            minLength: 1
